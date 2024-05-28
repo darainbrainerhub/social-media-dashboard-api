@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    networks:
+      - test
+    volumes:
+      - .:/app
+
+
+  db:
+    image: postgres:13
+    restart: always
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=darain
+      - POSTGRES_DB=smedia4_db
+    ports: 
+      - 5432:5432
+    networks:
+      - test
+
+volumes:
+  pgdata:
+
+networks:
+  test:
+
